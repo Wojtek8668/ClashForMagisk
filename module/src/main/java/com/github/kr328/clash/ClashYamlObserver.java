@@ -16,7 +16,7 @@ public class ClashYamlObserver {
     private Callback callback;
     private File dataDir;
     private FileObserver fileObserver;
-    private Timer timer = new Timer();
+    private Thread dataChangedThread;
 
     ClashYamlObserver(String data, Callback callback) {
         this.dataDir = new File(data);
@@ -46,16 +46,15 @@ public class ClashYamlObserver {
                     restart();
                 }
                 else {
-                    if ( file.endsWith(".yaml") || file.endsWith(".yml") )
-                        onDataDirChanged();
-                    else {
-                        switch (file) {
-                            case "STOP":
-                            case "START":
-                            case "RESTART":
-                                Utils.deleteFiles(dataDir.getAbsolutePath(), "STOP", "START", "RESTART");
-                                callback.onUserControl(file);
-                        }
+                    switch (file) {
+                        case "config.yml":
+                        case "config.yaml":
+                            onDataDirChanged();
+                            break;
+                        case "STOP":
+                        case "START":
+                        case "RESTART":
+                            callback.onUserControl(file);
                     }
                 }
             }
@@ -65,20 +64,16 @@ public class ClashYamlObserver {
     }
 
     private synchronized void onDataDirChanged() {
-        resetTimer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                callback.onDataDirChanged();
+        if ( dataChangedThread != null )
+            dataChangedThread.interrupt();
+        dataChangedThread = new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                return;
             }
-        }, 10 * 1000);
-    }
 
-    private void resetTimer() {
-        try {
-            timer.purge();
-            timer.cancel();
-        }
-        catch (IllegalStateException ignored) { }
+            callback.onDataDirChanged();
+        });
     }
 }
