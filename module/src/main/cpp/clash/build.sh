@@ -23,10 +23,16 @@ ANDROID_LD=$ANDROID_NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-
 
 export GOARCH=arm64 
 export GOOS=android 
-export CXX=$ABDROID_CXX 
+export CXX=$ANDROID_CXX
 export CC=$ANDROID_CC 
 export LD=$ANDROID_LD 
-export CGO_ENABLED=1 
+export CGO_ENABLED=1
+
+git clone -b dev "https://github.com/Dreamacro/clash"
+
+pushd clash
+git pull --force
+popd
 
 go build -ldflags "-X \"github.com/Dreamacro/clash/constant.Version=$VERSION\" -X \"github.com/Dreamacro/clash/constant.BuildTime=$BUILDTIME\" -w -s" \
-            -o bin/clash-android-arm64-v8a
+            -o clash/clash-android
