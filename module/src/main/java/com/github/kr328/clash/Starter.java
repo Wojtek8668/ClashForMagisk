@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Starter {
-    private String baseDir;
+    private String coreDir;
     private String dataDir;
 
     private Starter(String baseDir, String dataDir) {
@@ -29,7 +29,7 @@ public class Starter {
         ProxySetup proxySetup = new ProxySetup(dataDir);
 
         ClashRunner runner = new ClashRunner(baseDir, dataDir, new ClashRunner.Callback() {
-            @Override
+           @Override
             public void onStarted(ClashRunner runner, StarterConfigure starter ,ClashConfigure clash) {
                 Utils.deleteFiles(dataDir, "RUNNING", "STOPPED");
                 
@@ -74,7 +74,7 @@ public class Starter {
                     restart.set(true);
                     runner.stop();
                     break;
-            }
+           }
         });
 
         observer.start();
@@ -90,7 +90,8 @@ public class Starter {
 
     public static void main(String[] args) {
         if ( args.length != 2 ) {
-            System.err.println("Usage: app_process /system/bin com.github.kr328.clash.Starter [BASE-DIR] [DATA-DIR]");
+            System.err.println("Usage: app_process /system/bin com.github.kr328.clash.Starter [CORE-DIR] [DATA-DIR]");
+
             System.exit(1);
         }
 

@@ -10,9 +10,11 @@ class ClashRunner {
     interface Callback {
         void onStarted(ClashRunner runner, StarterConfigure starter, ClashConfigure clash);
         void onStopped(ClashRunner runner, StarterConfigure starter, ClashConfigure clash);
-    }
+   }
 
-    private String baseDir;
+    private final static Pattern PATTERN_CLASH_PID_OUTPUT = Pattern.compile("CLASH_PID=\\[(\\d+)]");
+
+    private String coreDir;
     private String dataDir;
     private Process process;
     private Callback callback;
@@ -61,6 +63,7 @@ class ClashRunner {
 
             process = Runtime.getRuntime().exec("/system/bin/sh");
 
+	    
             process.getOutputStream().write(("echo PID=($$)\n").getBytes());
             process.getOutputStream().write(("exec " + command + "\n").getBytes());
             process.getOutputStream().flush();
@@ -106,4 +109,5 @@ class ClashRunner {
 
         android.os.Process.killProcess(pid);
     }
+
 }
