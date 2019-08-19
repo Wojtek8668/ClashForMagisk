@@ -6,9 +6,13 @@
 #   - ANDROID_NDK=/path/to/android/ndk /path/to/this/script
 #
 
+if [[ "$OUTPUT" == "" ]];then
+    OUTPUT=clash-build/clash-android
+fi
+
 if [[ ! -d "$ANDROID_NDK" ]];then
-echo "ANDROID_NDK is empty"
-exit 1
+    echo "ANDROID_NDK is empty"
+    exit 1
 fi
 
 export GOPATH=`realpath ./gopath`
@@ -28,11 +32,14 @@ export CC=$ANDROID_CC
 export LD=$ANDROID_LD 
 export CGO_ENABLED=1
 
-git clone -b dev "https://github.com/Dreamacro/clash"
+git clone -b dev "https://github.com/Dreamacro/clash" clash-build
 
-pushd clash
-git pull --force
-popd
+cd clash-build
 
-go build -ldflags "-X \"github.com/Dreamacro/clash/constant.Version=$VERSION\" -X \"github.com/Dreamacro/clash/constant.BuildTime=$BUILDTIME\" -w -s" \
-            -o clash/clash-android
+git pull
+
+exec go build -ldflags "-X \"github.com/Dreamacro/clash/constant.Version=$VERSION\" -X \"github.com/Dreamacro/clash/constant.BuildTime=$BUILDTIME\" -w -s" \
+            -o "$OUTPUT"
+
+
+

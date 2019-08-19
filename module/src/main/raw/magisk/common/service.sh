@@ -22,12 +22,12 @@ while [[ ! -f "/sdcard/Android" ]];do
     sleep 1
 done
 
-if [[ ! -f "$DATA_DIR/Country.mmdb" ]];then
-    cp "$CORE_DIR/Country.mmdb" "$DATA_DIR/Country.mmdb"
-fi
-
 if [[ ! -d "$DATA_DIR/mode.d" ]];then
     cp -r "$CORE_DIR/mode.d" "$DATA_DIR/"
+fi
+
+if [[ ! -d "$DATA_DIR/starter.yaml" ]];then
+    cp -r "$CORE_DIR/stater.yaml" "$DATA_DIR/"
 fi
 
 CLASSPATH="$CORE_DIR/starter.jar" "$CORE_DIR/daemonize" /system/bin/app_process /system/bin com.github.kr328.clash.Starter "$CORE_DIR" "$DATA_DIR"

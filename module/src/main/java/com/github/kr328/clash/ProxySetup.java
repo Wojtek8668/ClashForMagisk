@@ -27,6 +27,9 @@ class ProxySetup {
             if ( clashConfigure.portDns != null )
                 env.put("CLASH_DNS_PORT", clashConfigure.portDns);
 
+            env.put("CLASH_UID", Constants.CLASH_UID);
+            env.put("CLASH_GID", Constants.CLASH_GID);
+
             exec("sh " + dataDir + "/mode.d/" + starterConfigure.mode + "/on-start.sh", env);
         } catch (IOException e) {
             Log.e(Constants.TAG, "proxy-setup: failure", e);
