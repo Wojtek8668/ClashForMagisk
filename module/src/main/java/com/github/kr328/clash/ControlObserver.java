@@ -27,7 +27,7 @@ public class ControlObserver {
             fileObserver.stopWatching();
     }
 
-    public void start() {
+    void start() {
         restart();
     }
 

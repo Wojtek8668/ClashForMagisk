@@ -12,7 +12,7 @@ class StarterConfigure {
     String mode;
 
     static StarterConfigure loadFromFile(File file) throws IOException {
-        Map root = new Yaml(new SafeConstructor()).loadAs(new FileReader(file), Map.class);
+        Map root = new Yaml(new SafeConstructor()).load(new FileReader(file));
 
         StarterConfigure result = new StarterConfigure();
 

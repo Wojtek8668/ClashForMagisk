@@ -11,5 +11,5 @@ class Constants {
 
     static final String STARTER_COMMAND_TEMPLATE = "{BASE_DIR}/setuidgid {UID} {GID} {GROUPS} {BASE_DIR}/clash -d {DATA_DIR} 2>&1";
 
-    static final Pattern PATTERN_CLASH_PID = Pattern.compile("\\s*PID=\\((\\d+)\\)\\s*");
+    static final Pattern PATTERN_CLASH_PID = Pattern.compile("\\s*PID=\\[(\\d+)]\\s*");
 }

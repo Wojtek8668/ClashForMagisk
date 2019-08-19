@@ -18,16 +18,18 @@ mkdir -p "$CORE_DIR"
 
 mount -o bind "$CORE_INTERNAL_DIR" "$CORE_DIR"
 
-while [[ ! -f "/sdcard/Android" ]];do
+while [[ ! -d "/sdcard/Android" ]];do
     sleep 1
 done
+
+mkdir -p "$DATA_DIR"
 
 if [[ ! -d "$DATA_DIR/mode.d" ]];then
     cp -r "$CORE_DIR/mode.d" "$DATA_DIR/"
 fi
 
-if [[ ! -d "$DATA_DIR/starter.yaml" ]];then
-    cp -r "$CORE_DIR/stater.yaml" "$DATA_DIR/"
+if [[ ! -f "$DATA_DIR/starter.yaml" ]];then
+    cp "$CORE_DIR/starter.yaml" "$DATA_DIR/starter.yaml"
 fi
 
-CLASSPATH="$CORE_DIR/starter.jar" "$CORE_DIR/daemonize" /system/bin/app_process /system/bin com.github.kr328.clash.Starter "$CORE_DIR" "$DATA_DIR"
+CLASSPATH="$CORE_DIR/starter.jar" "$CORE_DIR/daemonize" /system/bin/app_process /system/bin --nice-name=clash_starter com.github.kr328.clash.Starter "$CORE_DIR" "$DATA_DIR"

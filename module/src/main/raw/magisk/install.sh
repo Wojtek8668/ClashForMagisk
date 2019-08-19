@@ -139,7 +139,7 @@ on_install() {
   check_architecture
 
   ui_print "- Extracting core files"
-  unzip -o "$ZIPFILE" 'core/*' -d "$MODPATH" >&2
+  unzip -o "$ZIPFILE" 'core/**' -d "$MODPATH" >&2
 
   ui_print "- Files copied"
 }

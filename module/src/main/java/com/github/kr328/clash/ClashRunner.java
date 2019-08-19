@@ -33,7 +33,7 @@ class ClashRunner {
 
         try {
             try {
-                starterConfigure = StarterConfigure.loadFromFile(new File(dataDir + "starter.yaml"));
+                starterConfigure = StarterConfigure.loadFromFile(new File(dataDir + "/starter.yaml"));
 
                 if ( new File(dataDir + "/config.yaml").exists() ) {
                     clashConfigure = ClashConfigure.loadFromFile(new File(dataDir + "/config.yaml"));
@@ -62,7 +62,7 @@ class ClashRunner {
             process = Runtime.getRuntime().exec("/system/bin/sh");
 
 	    
-            process.getOutputStream().write(("echo PID=($$)\n").getBytes());
+            process.getOutputStream().write(("echo PID=[$$]\n").getBytes());
             process.getOutputStream().write(("exec " + command + "\n").getBytes());
             process.getOutputStream().flush();
 

@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
     char *p = strtok(argv[3], ",");
     while ( p != NULL ) {
         groups[groups_length++] = atoi(p);
-        strtok(NULL, ",");
+        p = strtok(NULL, ",");
     }
 
     failure |= setgroups(groups_length, groups);

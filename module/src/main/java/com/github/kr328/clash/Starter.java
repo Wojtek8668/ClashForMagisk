@@ -77,6 +77,15 @@ public class Starter {
            }
         });
 
+        Utils.deleteFiles(dataDir, "RUNNING", "STOPPED");
+
+        try {
+            //noinspection ResultOfMethodCallIgnored
+            new File(dataDir, "STOPPED").createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         observer.start();
         runner.start();
 

@@ -15,7 +15,7 @@ public class ClashConfigure {
     String portDns;
 
     public static ClashConfigure loadFromFile(File file) throws IOException {
-        Map root = new Yaml(new SafeConstructor()).loadAs(new FileReader(file), Map.class);
+        Map root = new Yaml(new SafeConstructor()).load(new FileReader(file));
         ClashConfigure result = new ClashConfigure();
 
         result.portHttp = valueOfOrNull(root.get("port"));
