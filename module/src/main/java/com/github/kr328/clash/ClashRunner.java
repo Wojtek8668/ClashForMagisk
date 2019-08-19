@@ -12,9 +12,7 @@ class ClashRunner {
         void onStopped(ClashRunner runner, StarterConfigure starter, ClashConfigure clash);
    }
 
-    private final static Pattern PATTERN_CLASH_PID_OUTPUT = Pattern.compile("CLASH_PID=\\[(\\d+)]");
-
-    private String coreDir;
+    private String baseDir;
     private String dataDir;
     private Process process;
     private Callback callback;

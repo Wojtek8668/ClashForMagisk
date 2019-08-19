@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Starter {
-    private String coreDir;
+    private String baseDir;
     private String dataDir;
 
     private Starter(String baseDir, String dataDir) {
