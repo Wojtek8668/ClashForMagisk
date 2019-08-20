@@ -3,19 +3,30 @@ package com.github.kr328.clash;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
 class ProxySetup {
     private String dataDir;
+    private String baseDir;
 
-    ProxySetup(String dataDir) {
+    ProxySetup(String dataDir, String baseDir) {
         this.dataDir = dataDir;
+        this.baseDir = baseDir;
     }
 
     void execOnStarted(StarterConfigure starterConfigure, ClashConfigure clashConfigure) {
         try {
+            File script = new File(dataDir + "/mode.d/" + starterConfigure.mode + "/on-start.sh");
+            if ( !script.exists() )
+                script = new File(baseDir + "/mode.d/" + starterConfigure.mode + "/on-start.sh");
+            if ( !script.exists() ) {
+                Log.e(Constants.TAG, "Unsupported proxy mode " + starterConfigure.mode);
+                return;
+            }
+
             HashMap<String, String> env = new HashMap<>();
 
             if ( clashConfigure.portHttp != null )
@@ -30,14 +41,22 @@ class ProxySetup {
             env.put("CLASH_UID", Constants.CLASH_UID);
             env.put("CLASH_GID", Constants.CLASH_GID);
 
-            exec("sh " + dataDir + "/mode.d/" + starterConfigure.mode + "/on-start.sh", env);
+            exec("sh " + script.getAbsolutePath(), env);
         } catch (IOException e) {
             Log.e(Constants.TAG, "proxy-setup: failure", e);
         }
     }
 
-    void exceOnStop(StarterConfigure starterConfigure, ClashConfigure clashConfigure) {
+    void execOnStop(StarterConfigure starterConfigure, ClashConfigure clashConfigure) {
         try {
+            File script = new File(dataDir + "/mode.d/" + starterConfigure.mode + "/on-start.sh");
+            if ( !script.exists() )
+                script = new File(baseDir + "/mode.d/" + starterConfigure.mode + "/on-start.sh");
+            if ( !script.exists() ) {
+                Log.e(Constants.TAG, "Unsupported proxy mode " + starterConfigure.mode);
+                return;
+            }
+
             HashMap<String, String> env = new HashMap<>();
 
             if ( clashConfigure.portHttp != null )
@@ -49,7 +68,7 @@ class ProxySetup {
             if ( clashConfigure.portDns != null )
                 env.put("CLASH_DNS_PORT", clashConfigure.portDns);
 
-            exec("sh " + dataDir + "/mode.d/" + starterConfigure.mode + "/on-stop.sh", env);
+            exec("sh " + script.getAbsolutePath(), env);
         } catch (IOException e) {
             Log.e(Constants.TAG, "proxy-setup: failure", e);
         }

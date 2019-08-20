@@ -1,80 +1,54 @@
-# Riru - InternalBrowserRedirect
+# Clash for Magisk
 
-A module of [Riru](https://github.com/RikkaApps/Riru). Redirect internal browser activity to ACTION_VIEW.
+A rule-based tunnel in Go. This module is wrapper for [clash](https://github.com/Dreamacro/clash) 
 
-[中文说明](https://github.com/Kr328/Riru-InternalBrowserRedirect/blob/master/README_zh.md)
+[中文说明](README_zh.md)
 
 ## Requirements
 
-* [Riru](https://github.com/RikkaApps/Riru) > 19 installed.
-* Android 8.0-9.0 (below not tests)
-
-
+* arm64 ABI
 
 ## Feature
 
-Redirect some application's internal browser to external browser (eg. TIM's QQBrowser to Chrome)
+See also https://github.com/Dreamacro/clash
 
-**Double click same url in 5s will fallback to internal browser**
+## Configure
 
-Currently support apps
+Data Path  `/sdcard/Android/data/com.github.kr328.clash`
 
-- WeChat
-- QQ
-- TIM
-- Bilibili
+In data directory
 
+* Clash configure file `config.yaml`
+* Clash GEOIP database `Country.mmdb`
+* Clash starter configure file `starter.yaml`
+* Clash status file `RUNNING` or `STOPPED`
 
+## Control
 
-## Custom Rules
+Data Path  `/sdcard/Android/data/com.github.kr328.clash`
 
-1. Create file **/data/misc/riru/modules/ibr/config.\<package\>.json (replace \<package\> to target package name)**
+Create the following file to control clash
 
-2. Write rule in created file 
-
-   example
-
-   ```json
-   {
-   	"name": "TIM", 
-   	"rules": [          
-   		{
-   			"extra-key": "url",   
-   			"ignore-url": ".*bilibili\\.com.*",
-   			"force-url": "" 
-   		}
-   	]
-   } 
-   ```
-   | key        | value                                  |
-   | ---------- | -------------------------------------- |
-   | name       | logcat display name                    |
-   | rules      | rules or just keep empty for debugging |
-   | extra-key  | load url from extra which is key       |
-   | ignore-url | ignore apply url regex                 |
-   | force-url  | force apply url regex                  |
-
-3. logcat to check it work (TAG: **InternalBrowserRedirect**)
-
-4. (Optional) Share this rules by submissing on github issue
+* `START` - Start clash if stopped
+* `STOP` - Stop clash if running
+* `RESTART` - Restart clash 
 
 
 
 ## Build
 
-  1.Install JDK ,Gradle ,Android SDK ,Android NDK
+1. Install JDK ,Gradle ,Android SDK ,Android NDK  
 
-  2.Configure with your environment [local.properties](https://github.com/Kr328/Riru-InternalBrowserRedirect/blob/master/local.properties)
+2. Create `local.properties` on project root directory  
+   ```properties
+   sdk.dir=/path/to/android-sdk
+   ndk.dir=/path/to/android-ndk
+   cmake.dir=/path/to/android-cmake/*version*
+   ```
 
-  3.Run command 
+3. Run command   
+   ```bash
+   ./gradlew build
+   ```
 
-``` Gradle 
-./gradlew build
-```
-  4.Pick riru-internal-browser-redirect.zip from module/build/outputs
-
-
-
-## Feedback
-
-Telegram Group [Kr328 Riru Modules](https://t.me/kr328_riru_modules)
+4. Pick clash-for-magisk.zip from module/build/outputs  

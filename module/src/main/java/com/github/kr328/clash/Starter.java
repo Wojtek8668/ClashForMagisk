@@ -47,7 +47,7 @@ public class Starter {
             public void onStopped(ClashRunner runner, StarterConfigure starter, ClashConfigure clash) {
                 Utils.deleteFiles(dataDir, "RUNNING", "STOPPED");
                 
-                proxySetup.exceOnStop(starter, clash);
+                proxySetup.execOnStop(starter, clash);
                 
                 try {
                     //noinspection ResultOfMethodCallIgnored
