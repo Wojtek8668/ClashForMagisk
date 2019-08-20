@@ -8,9 +8,13 @@ A rule-based tunnel in Go. This module is wrapper for [clash](https://github.com
 
 * arm64 指令集
 
+
+
 ## 功能
 
 参见 https://github.com/Dreamacro/clash
+
+
 
 ## 配置
 
@@ -23,6 +27,8 @@ A rule-based tunnel in Go. This module is wrapper for [clash](https://github.com
 * Clash 启动器 配置文件  `starter.yaml`
 * Clash 状态文件 `RUNNING` 或者 `STOPPED`
 
+
+
 ## 控制
 
 数据目录  `{内置存储根目录}/Android/data/com.github.kr328.clash`
@@ -32,6 +38,38 @@ A rule-based tunnel in Go. This module is wrapper for [clash](https://github.com
 * `START` - 启动 Clash
 * `STOP` - 停止 Clash
 * `RESTART` - 重新启动 clash 
+
+
+
+## 读取日志
+
+* 在 PC 上
+
+  运行命令
+
+  `adb logcat -s Clash`
+
+* 在 Android 上
+
+  运行命令
+
+  `logcat -s Clash`
+
+
+
+## 自定义代理模式
+
+自定义代理模式路径 `{内置存储目录}/Android/data/com.github.kr328.clash/mode.d` 
+
+1. 创建名称为 **自定义代理模式** 的目录
+
+2. 创建脚本 `on-start.sh` 和 `on-stop.sh`
+
+   例子 [link](module/src/main/raw/magisk/core/mode.d/)
+
+3. 更改 `mode` 在 `starter.yaml` 
+
+
 
 
 ## 构建

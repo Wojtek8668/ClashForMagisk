@@ -1,5 +1,11 @@
 # Clash for Magisk Starter configure
 
 # Proxy mode
-# reference to mode.d/{mode}
-mode: "proxy-only"
+# proxy setup script in mode.d/{mode}
+# 
+# bulti-in mode 
+#  - redirect 
+#  - proxy-only
+#
+
+mode: "redirect"

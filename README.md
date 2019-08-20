@@ -12,9 +12,11 @@ A rule-based tunnel in Go. This module is wrapper for [clash](https://github.com
 
 See also https://github.com/Dreamacro/clash
 
+
+
 ## Configure
 
-Data Path  `/sdcard/Android/data/com.github.kr328.clash`
+Data Path  `{InternalStorage}/Android/data/com.github.kr328.clash`
 
 In data directory
 
@@ -22,16 +24,49 @@ In data directory
 * Clash GEOIP database `Country.mmdb`
 * Clash starter configure file `starter.yaml`
 * Clash status file `RUNNING` or `STOPPED`
+* Custom proxy mode directory `mode.d`
+
+
 
 ## Control
 
-Data Path  `/sdcard/Android/data/com.github.kr328.clash`
+Data Path  `{InternalStorage}/Android/data/com.github.kr328.clash`
 
 Create the following file to control clash
 
 * `START` - Start clash if stopped
 * `STOP` - Stop clash if running
 * `RESTART` - Restart clash 
+
+
+
+## Read logs
+
+* On PC
+
+  Run command
+
+  `adb logcat -s Clash`
+
+* On Android
+
+  Run command
+
+  `logcat -s Clash`
+
+
+
+## Custom Proxy Mode
+
+Custom Mode Directory `{InternalStorage}/Android/data/com.github.kr328.clash/mode.d` 
+
+1. Create directory with mode name
+
+2. Create script `on-start.sh` and `on-stop.sh`
+
+   Example for thus script [link](module/src/main/raw/magisk/core/mode.d/)
+
+3. Change `mode` in `starter.yaml` 
 
 
 
