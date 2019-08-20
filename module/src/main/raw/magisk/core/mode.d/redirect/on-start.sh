@@ -74,5 +74,5 @@ assert iptables -t nat -A CLASH_DNS_LOCAL -p udp -j REDIRECT --to-ports ${CLASH_
 assert iptables -t nat -A CLASH_DNS_EXTERNAL -p udp ! --dport 53 -j RETURN
 assert iptables -t nat -A CLASH_DNS_EXTERNAL -p udp -j REDIRECT --to-ports ${CLASH_DNS_PORT}
 
-assert iptables -t nat -I OUTPUT -p udp --dport 53 -j CLASH_DNS_LOCAL
-assert iptables -t nat -I PREROUTING -p udp --dport 53 -j CLASH_DNS_EXTERNAL
+assert iptables -t nat -I OUTPUT -p udp -j CLASH_DNS_LOCAL
+assert iptables -t nat -I PREROUTING -p udp -j CLASH_DNS_EXTERNAL

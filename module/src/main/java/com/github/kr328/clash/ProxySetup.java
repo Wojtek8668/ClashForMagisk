@@ -12,7 +12,7 @@ class ProxySetup {
     private String dataDir;
     private String baseDir;
 
-    ProxySetup(String dataDir, String baseDir) {
+    ProxySetup(String baseDir, String dataDir) {
         this.dataDir = dataDir;
         this.baseDir = baseDir;
     }
@@ -49,9 +49,9 @@ class ProxySetup {
 
     void execOnStop(StarterConfigure starterConfigure, ClashConfigure clashConfigure) {
         try {
-            File script = new File(dataDir + "/mode.d/" + starterConfigure.mode + "/on-start.sh");
+            File script = new File(dataDir + "/mode.d/" + starterConfigure.mode + "/on-stop.sh");
             if ( !script.exists() )
-                script = new File(baseDir + "/mode.d/" + starterConfigure.mode + "/on-start.sh");
+                script = new File(baseDir + "/mode.d/" + starterConfigure.mode + "/on-stop.sh");
             if ( !script.exists() ) {
                 Log.e(Constants.TAG, "Unsupported proxy mode " + starterConfigure.mode);
                 return;
@@ -67,6 +67,9 @@ class ProxySetup {
                 env.put("CLASH_REDIR_PORT", clashConfigure.portRedir);
             if ( clashConfigure.portDns != null )
                 env.put("CLASH_DNS_PORT", clashConfigure.portDns);
+
+            env.put("CLASH_UID", Constants.CLASH_UID);
+            env.put("CLASH_GID", Constants.CLASH_GID);
 
             exec("sh " + script.getAbsolutePath(), env);
         } catch (IOException e) {

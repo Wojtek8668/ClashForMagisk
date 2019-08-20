@@ -26,7 +26,7 @@ public class Starter {
 
         AtomicBoolean restart = new AtomicBoolean(false);
         
-        ProxySetup proxySetup = new ProxySetup(dataDir);
+        ProxySetup proxySetup = new ProxySetup(baseDir, dataDir);
 
         ClashRunner runner = new ClashRunner(baseDir, dataDir, new ClashRunner.Callback() {
            @Override
