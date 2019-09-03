@@ -10,7 +10,7 @@ A rule-based tunnel in Go. This module is wrapper for [clash](https://github.com
 
 ## License
 
-See also [NOTICE](NOTICE) and [LICENSE](LICENSE]
+See also [NOTICE](NOTICE) and [LICENSE](LICENSE)  
 
 ## Feature
 
